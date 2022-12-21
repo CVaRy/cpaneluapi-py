@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "cpaneluserapi"
+version = "0.1"
+description = "CPanel API Client. Supports cPanel API 2 and UAPI."
+readme = "README.md"
+authors = ["Sergey M <yamldeveloper@proton.me>", "Marco Bravo Mejías <marco@layfellow.net>"]
+classifiers = [
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Utilities"
+]
+
+[tool.poetry.dependencies]
+
+[tool.poetry.dev-dependencies]

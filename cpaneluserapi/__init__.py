@@ -4,6 +4,7 @@ import urllib
 import json
 from urllib.parse import urlencode
 
+
 class api:
     def __init__(self, base_url, username, token):
         self.base_url = base_url
@@ -94,6 +95,13 @@ class api:
         key_id = json.loads(key_id)
         autossl = self.generatorCSR(domain,country,state,city,co,key_id["data"]["id"],"AutoSSL System-"+domain)
 
-        return print("Auto SSL Kurulumu Başarılı",autossl)
-        
+        return autossl
 
+    def listcsr(self):
+        domainlist = self.__cQuery('SSL','list_csrs') # CSR List Talebi
+        domainler = {}
+        for i in range(len(domainlist["data"])): # Liste Sayısı Tespit
+            dm = domainlist["data"][i]["commonName"] # Gelen Domainleri DM değişkenine ata
+            domainler[i] = dm # Domainler Listesine DM değişkenini ekle
+
+        return domainler # Fonsiyon döngüsü Json domain listesini ver.
