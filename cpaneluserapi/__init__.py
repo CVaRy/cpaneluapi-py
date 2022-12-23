@@ -5,16 +5,16 @@ import json
 from urllib.parse import urlencode
 
 
-class api:
-    def __init__(self, base_url, username, token):
+class api(object):
+    def __init__(self, base_url:str, username:str, token:str):
         self.base_url = base_url
         self.username = username
         self.token = token
         self.headers = {
             'Authorization': 'cpanel ' + f"{self.username}:{self.token}"
         }
-
-    def __cQuery(self, resource, kwargs,value={}):
+    
+    def __cQuery(self,resource, kwargs,value={}):
         """Query Cpanel API
         https://documentation.cpanel.net/display/DD/Guide+to+UAPI
         Parameters
@@ -96,7 +96,6 @@ class api:
         autossl = self.generatorCSR(domain,country,state,city,co,key_id["data"]["id"],"AutoSSL System-"+domain)
 
         return autossl
-
     def listcsr(self):
         domainlist = self.__cQuery('SSL','list_csrs') # CSR List Talebi
         domainler = {}
@@ -105,3 +104,41 @@ class api:
             domainler[i] = dm # Domainler Listesine DM değişkenini ekle
 
         return domainler # Fonsiyon döngüsü Json domain listesini ver.
+
+    def domainlist(self,type):
+        """
+        Parameters
+        type: addon_domains,sub_domains,parked_domains
+        """
+        domainlist = self.__cQuery('DomainInfo','list_domains')
+        domainler = {}
+        if type == "main_domain":
+            return domainlist["data"][type]
+        else:
+
+            for i in range(len(domainlist["data"][type])): # Liste Sayısı Tespit
+                dm = domainlist["data"][type][i] # Gelen Domainleri DM değişkenine ata
+                domainler[i] = dm # Domainler Listesine DM değişkenini ekle
+
+            return domainler
+    def BlockIP_add_ip(self,ip):
+
+        return self.__cQuery('BlockIP','add_ip',{
+            'ip':ip
+        })
+    def BlockIP_remove_ip(self,ip):
+
+        return self.__cQuery('BlockIP','remove_ip',{
+            'ip':ip
+        })
+    
+    def Quota_get_quota_info(self):
+
+        return self.__cQuery('Quota','get_quota_info',{})
+
+    def ResourceUsage_get_usages(self):
+
+        return self.__cQuery('ResourceUsage','get_usages',{})
+
+
+
