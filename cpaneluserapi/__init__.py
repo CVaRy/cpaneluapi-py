@@ -22,7 +22,7 @@ class api(object):
             faction: gener_csr 
             
         Returns
-            JSON response
+            JSON responses
         """
         try:
 
