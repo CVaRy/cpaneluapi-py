@@ -95,9 +95,10 @@ class api(object):
         key_id = json.loads(key_id)
         autossl = {}
         autossl["key"] = key_id["data"]["text"]
-        autossl["csr"] = key_id = self.generatorCSR(domain,country,state,city,co,key_id["data"]["id"],"AutoSSL System-"+domain)
+        response = self.generatorCSR(domain,country,state,city,co,key_id["data"]["id"],"AutoSSL System-"+domain)
+        autossl["csr"] = response["data"]["text"]
 
-        return 
+        return autossl
     def listcsr(self):
         domainlist = self.__cQuery('SSL','list_csrs') # CSR List Talebi
         domainler = {}
