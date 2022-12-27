@@ -93,6 +93,8 @@ class api(object):
         key_id = self.generatorKey("rsa-2048",2048,"AutoSSL System-"+domain)
         key_id = json.dumps(key_id)
         key_id = json.loads(key_id)
+        autossl = ""
+        autossl["KeyData"] = key_id
         autossl = self.generatorCSR(domain,country,state,city,co,key_id["data"]["id"],"AutoSSL System-"+domain)
 
         return autossl
