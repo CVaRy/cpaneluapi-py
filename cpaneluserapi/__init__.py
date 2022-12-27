@@ -140,5 +140,12 @@ class api(object):
 
         return self.__cQuery('ResourceUsage','get_usages',{})
 
+    def findkey(self,key_id):
+        
+
+        return self.__cQuery('SSL','find_csrs_for_key',{
+            'id': key_id,
+        })
+
 
 
